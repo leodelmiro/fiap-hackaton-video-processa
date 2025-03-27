@@ -1,6 +1,8 @@
 package com.leodelmiro.recebevideo.entrypoint.queue
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.leodelmiro.recebevideo.core.dataprovider.PublicaErroProcessamentoVideoGateway
+import com.leodelmiro.recebevideo.core.domain.Arquivo
 import com.leodelmiro.recebevideo.core.usecase.ProcessaVideoUseCase
 import com.leodelmiro.recebevideo.dataprovider.request.NovoVideoRecebidoRequest
 import io.awspring.cloud.sqs.annotation.SqsListener
@@ -11,7 +13,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class NovoVideoParaProcessamentoConsumer(
-    private val pagaPedidoUseCase: ProcessaVideoUseCase,
+    private val processaVideoUseCase: ProcessaVideoUseCase,
+    private val publicaErroProcessamentoVideoGateway: PublicaErroProcessamentoVideoGateway,
     private val objectMapper: ObjectMapper
 ) {
 
@@ -23,6 +26,17 @@ class NovoVideoParaProcessamentoConsumer(
         val message = objectMapper.readTree(payload)["Message"].asText()
         logger.info("Recebido novo video para processamento: $message")
         val videoMessage = objectMapper.readValue(message, NovoVideoRecebidoRequest::class.java)
-        pagaPedidoUseCase.executar(videoMessage.toVideo())
+        try {
+            processaVideoUseCase.executar(videoMessage.toVideo())
+        } catch (exception: Exception) {
+            publicaErroProcessamentoVideoGateway.executar(
+                Arquivo(
+                    videoMessage.videoKey,
+                    videoMessage.nome,
+                    videoMessage.descricao,
+                    videoMessage.autor
+                )
+            )
+        }
     }
 }

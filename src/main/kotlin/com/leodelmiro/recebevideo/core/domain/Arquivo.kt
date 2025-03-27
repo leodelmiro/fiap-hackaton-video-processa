@@ -4,5 +4,6 @@ class Arquivo(
     val key: String,
     val nome: String,
     val descricao: String,
-    val autor: String
+    val autor: String,
+    val url: String? = null
 )

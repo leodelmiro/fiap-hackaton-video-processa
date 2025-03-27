@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
+import software.amazon.awssdk.services.s3.model.GetUrlRequest
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
+
 
 @Component
 class UploadImagensZipGatewayImpl(
@@ -28,7 +30,10 @@ class UploadImagensZipGatewayImpl(
 
         val requestBody = RequestBody.fromInputStream(zip.inputStream(), zip.size.toLong())
         amazonS3Client.putObject(putObjectRequest, requestBody)
+        val request = GetUrlRequest.builder().bucket(bucketName).key(key).build()
+        val url: String = amazonS3Client.utilities().getUrl(request).toExternalForm()
 
-        return Arquivo(key, nomeArquivoZip, antigoArquivo.descricao, antigoArquivo.autor)
+
+        return Arquivo(key, antigoArquivo.nome, antigoArquivo.descricao, antigoArquivo.autor, url)
     }
 }

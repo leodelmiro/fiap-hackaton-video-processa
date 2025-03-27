@@ -2,7 +2,7 @@ package com.leodelmiro.recebevideo.dataprovider.request
 
 import com.leodelmiro.recebevideo.core.domain.Arquivo
 
-data class VideProcessadoRequest(
+data class VideoProcessadoRequest(
     val nome: String,
     val descricao: String,
     val autor: String,
