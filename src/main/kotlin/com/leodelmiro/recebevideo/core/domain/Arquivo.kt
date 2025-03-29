@@ -1,6 +1,6 @@
 package com.leodelmiro.recebevideo.core.domain
 
-class Arquivo(
+data class Arquivo(
     val key: String,
     val nome: String,
     val descricao: String,

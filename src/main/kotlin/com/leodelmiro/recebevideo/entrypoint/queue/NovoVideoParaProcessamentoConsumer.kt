@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.leodelmiro.recebevideo.core.dataprovider.PublicaErroProcessamentoVideoGateway
 import com.leodelmiro.recebevideo.core.domain.Arquivo
 import com.leodelmiro.recebevideo.core.usecase.ProcessaVideoUseCase
-import com.leodelmiro.recebevideo.dataprovider.request.NovoVideoRecebidoRequest
+import com.leodelmiro.recebevideo.entrypoint.queue.request.NovoVideoRecebidoRequest
 import io.awspring.cloud.sqs.annotation.SqsListener
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -9,7 +9,7 @@ services:
       # LocalStack configuration: https://docs.localstack.cloud/references/configuration/
       - DEBUG=${DEBUG:-0}
       - SERVICES=sqs,s3,sns
-      - EXTRA_CORS_ALLOWED_ORIGINS=http://localhost:4567
+      - EXTRA_CORS_ALLOWED_ORIGINS=http://localhost:4568
     volumes:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
