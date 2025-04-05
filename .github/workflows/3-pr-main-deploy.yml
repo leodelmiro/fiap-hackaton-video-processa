@@ -51,6 +51,4 @@ jobs:
           kubectl apply -f ./deployment/k8s/configmap-withsecrets.yml
           kubectl apply -f ./deployment/k8s/serviceaccount.yml
           kubectl apply -f ./deployment/k8s/deployment.yml
-          kubectl apply -f ./deployment/k8s/service.yml
           kubectl apply -f ./deployment/k8s/hpa.yml
-          kubectl apply -f ./deployment/k8s/ingress.yml
