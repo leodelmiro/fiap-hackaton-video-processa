@@ -5,7 +5,7 @@ metadata:
   namespace: hackathon-fiap
 data:
   s3_url: "https://s3.us-east-1.amazonaws.com"
-  sqs: "https://sqs.us-east-1.amazonaws.com"
+  sqs_url: "https://sqs.us-east-1.amazonaws.com"
   aws_access_key: "{{AWS_ACCESS_KEY_ID}}"
   aws_secret_key: "{{AWS_SECRET_ACCESS_KEY}}"
   aws_session_token: "{{AWS_SESSION_TOKEN}}"
