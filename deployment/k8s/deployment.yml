@@ -42,11 +42,6 @@ spec:
                 configMapKeyRef:
                   name: processa-video-configmap
                   key: sqs_url
-            - name: SNS_ARN
-              valueFrom:
-                configMapKeyRef:
-                  name: processa-video-configmap
-                  key: novo_video_recebido_sns
             - name: AWS_SECRET_KEY
               valueFrom:
                 configMapKeyRef:
