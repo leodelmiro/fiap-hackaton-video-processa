@@ -14,7 +14,7 @@
 Aplicação se trata de um Projeto Fiap Tech Challenge (Hackathon) - Software Architecture, simulando um projeto de uma
 empresa que recebe videos e transforma em Imagens.
 
-Este repositório é referente ao microserviço responsável pelo processamento dos videos.
+Este repositório é referente ao microserviço responsável pelo processamento dos videos (Transforma em imagem e zippar).
 
 ### Demais repositórios
 - https://github.com/leodelmiro/fiap-hackaton-video-usuario
@@ -35,6 +35,7 @@ Este repositório é referente ao microserviço responsável pelo processamento 
 - Docker Compose
 - AWS
 - Kubernetes
+- S3
 
 ## Estrutura do Projeto
 
