@@ -32,7 +32,7 @@ Este repositório é referente ao microserviço responsável pelo processamento 
 - Swagger
 - Docker
 - Docker Compose
-- AWS
+- AWS EKS
 - Kubernetes
 - S3
 
