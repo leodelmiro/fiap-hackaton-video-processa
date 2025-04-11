@@ -26,10 +26,10 @@ spec:
           imagePullPolicy: Always
           resources:
             requests:
-              cpu: "256m"
-              memory: "512M"
-            limits:
               cpu: "512m"
+              memory: "1024M"
+            limits:
+              cpu: "1024m"
               memory: "2048M"
           env:
             - name: S3_URL
