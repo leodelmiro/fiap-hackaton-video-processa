@@ -1,6 +1,6 @@
 package com.leodelmiro.recebevideo.core.usecase.impl
 
-import com.leodelmiro.recebevideo.core.dataprovider.DownloadVideoGateway
+import com.leodelmiro.recebevideo.core.dataprovider.DownloadArquivoGateway
 import com.leodelmiro.recebevideo.core.dataprovider.PublicaProcessamentoFinalizadoGateway
 import com.leodelmiro.recebevideo.core.dataprovider.UploadImagensZipGateway
 import com.leodelmiro.recebevideo.core.usecase.RealizaZipImagensUseCase
@@ -14,7 +14,7 @@ import java.io.File
 
 class ProcessaVideoUseCaseImplTest {
 
-    private val downloadVideoGateway: DownloadVideoGateway = mock(DownloadVideoGateway::class.java)
+    private val downloadVideoGateway: DownloadArquivoGateway = mock(DownloadArquivoGateway::class.java)
     private val transformaVideoEmImagensUseCase: TransformaVideoEmImagensUseCase =
         mock(TransformaVideoEmImagensUseCase::class.java)
     private val realizaZipImagensUseCase: RealizaZipImagensUseCase = mock(RealizaZipImagensUseCase::class.java)
@@ -34,24 +34,20 @@ class ProcessaVideoUseCaseImplTest {
     fun `deve processar o video corretamente`() {
         val arquivo = criaArquivo()
         val fileMock = mock(File::class.java)
-        val imagens = listOf(
-            criarImagem(100, 100, Color.RED),
-            criarImagem(200, 200, Color.BLUE),
-            criarImagem(300, 300, Color.GREEN)
-        )
         val zipMock = ByteArray(1024)
         val arquivoZipMock = criaArquivo()
+        val key = "videos/${arquivo.nome}/frames"
 
         `when`(downloadVideoGateway.executar(arquivo)).thenReturn(fileMock)
-        `when`(transformaVideoEmImagensUseCase.executar(fileMock)).thenReturn(imagens)
-        `when`(realizaZipImagensUseCase.executar(imagens)).thenReturn(zipMock)
+        `when`(transformaVideoEmImagensUseCase.executar(fileMock, arquivo.nome)).thenReturn(key)
+        `when`(realizaZipImagensUseCase.executar(key)).thenReturn(zipMock)
         `when`(uploadImagensZipGateway.executar(zipMock, arquivo)).thenReturn(arquivoZipMock)
 
         processaVideoUseCase.executar(arquivo)
 
         verify(downloadVideoGateway).executar(arquivo)
-        verify(transformaVideoEmImagensUseCase).executar(fileMock)
-        verify(realizaZipImagensUseCase).executar(imagens)
+        verify(transformaVideoEmImagensUseCase).executar(fileMock, arquivo.nome)
+        verify(realizaZipImagensUseCase).executar(key)
         verify(uploadImagensZipGateway).executar(zipMock, arquivo)
         verify(publicaProcessamentoFinalizadoGateway).executar(arquivoZipMock)
     }
