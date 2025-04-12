@@ -1,6 +1,6 @@
 package com.leodelmiro.recebevideo.dataprovider
 
-import com.leodelmiro.recebevideo.core.dataprovider.DownloadVideoGateway
+import com.leodelmiro.recebevideo.core.dataprovider.DownloadArquivoGateway
 import com.leodelmiro.recebevideo.core.domain.Arquivo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -11,12 +11,12 @@ import java.io.File
 import java.io.FileOutputStream
 
 @Component
-class DownloadVideoGatewayImpl(
+class DownloadArquivoGatewayImpl(
     @Autowired
     private val amazonS3Client: S3Client,
     @Value("\${amazon.s3.bucket}")
     private val bucketName: String? = null,
-) : DownloadVideoGateway {
+) : DownloadArquivoGateway {
 
     override fun executar(arquivo: Arquivo): File {
         val file = File.createTempFile(arquivo.nome, ".tmp")

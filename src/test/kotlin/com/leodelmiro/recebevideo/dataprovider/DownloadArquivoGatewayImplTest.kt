@@ -16,10 +16,10 @@ import java.io.File
 import java.nio.file.Path
 import kotlin.test.assertEquals
 
-class DownloadVideoGatewayImplTest {
+class DownloadArquivoGatewayImplTest {
 
     private lateinit var s3Client: S3Client
-    private lateinit var downloadVideoGatewayImpl: DownloadVideoGatewayImpl
+    private lateinit var downloadArquivoGatewayImpl: DownloadArquivoGatewayImpl
 
     @TempDir
     lateinit var tempDir: Path
@@ -27,7 +27,7 @@ class DownloadVideoGatewayImplTest {
     @BeforeEach
     fun setUp() {
         s3Client = mock(S3Client::class.java)
-        downloadVideoGatewayImpl = DownloadVideoGatewayImpl(
+        downloadArquivoGatewayImpl = DownloadArquivoGatewayImpl(
             amazonS3Client = s3Client,
             bucketName = "test-bucket"
         )
@@ -45,7 +45,7 @@ class DownloadVideoGatewayImplTest {
         `when`(s3Client.getObject(any(GetObjectRequest::class.java)))
             .thenReturn(responseInputStream)
 
-        val arquivoBaixado: File = downloadVideoGatewayImpl.executar(arquivo)
+        val arquivoBaixado: File = downloadArquivoGatewayImpl.executar(arquivo)
 
         assertTrue(arquivoBaixado.exists())
         assertTrue(arquivoBaixado.readText() == "conteúdo do arquivo")
