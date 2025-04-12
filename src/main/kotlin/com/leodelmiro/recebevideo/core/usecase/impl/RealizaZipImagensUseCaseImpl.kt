@@ -2,7 +2,7 @@ package com.leodelmiro.recebevideo.core.usecase.impl
 
 import com.leodelmiro.recebevideo.core.dataprovider.DownloadEZipImagensGateway
 import com.leodelmiro.recebevideo.core.usecase.RealizaZipImagensUseCase
-import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -10,10 +10,10 @@ class RealizaZipImagensUseCaseImpl(
     private val downloadEZipImagensGateway: DownloadEZipImagensGateway
 ) : RealizaZipImagensUseCase {
 
-    override fun executar(prefix: String): ByteArray {
-        val byteArrayOutputStream = ByteArrayOutputStream()
+    override fun executar(prefix: String, arquivoNome: String): File {
+        val tempFile = File.createTempFile(arquivoNome, ".zip")
 
-        ZipOutputStream(byteArrayOutputStream).use { zipOut ->
+        ZipOutputStream(tempFile.outputStream()).use { zipOut ->
             downloadEZipImagensGateway.executar(prefix) { key, inputStream ->
                 val entryName = key.removePrefix("videos/")
                 zipOut.putNextEntry(ZipEntry(entryName))
@@ -22,6 +22,6 @@ class RealizaZipImagensUseCaseImpl(
             }
         }
 
-        return byteArrayOutputStream.toByteArray()
+        return tempFile
     }
 }

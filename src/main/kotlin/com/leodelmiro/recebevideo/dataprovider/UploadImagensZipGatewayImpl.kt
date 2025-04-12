@@ -8,6 +8,7 @@ import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.GetUrlRequest
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
+import java.io.File
 
 
 @Component
@@ -18,7 +19,7 @@ class UploadImagensZipGatewayImpl(
 ) : UploadImagensZipGateway {
 
 
-    override fun executar(zip: ByteArray, antigoArquivo: Arquivo): Arquivo {
+    override fun executar(arquivo: File, antigoArquivo: Arquivo): Arquivo {
         val nomeArquivoZip = "${antigoArquivo.nome}.zip"
         val key = "zips/$nomeArquivoZip"
 
@@ -28,7 +29,7 @@ class UploadImagensZipGatewayImpl(
             .contentType("application/zip")
             .build()
 
-        val requestBody = RequestBody.fromInputStream(zip.inputStream(), zip.size.toLong())
+        val requestBody = RequestBody.fromInputStream(arquivo.inputStream(), arquivo.length())
         amazonS3Client.putObject(putObjectRequest, requestBody)
         val request = GetUrlRequest.builder().bucket(bucketName).key(key).build()
         val url: String = amazonS3Client.utilities().getUrl(request).toExternalForm()
