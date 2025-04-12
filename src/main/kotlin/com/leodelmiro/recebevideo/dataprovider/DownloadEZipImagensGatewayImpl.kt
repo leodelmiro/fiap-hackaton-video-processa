@@ -1,23 +1,21 @@
 package com.leodelmiro.recebevideo.dataprovider
 
-import com.leodelmiro.recebevideo.core.dataprovider.DownloadImagensDoS3Gateway
+import com.leodelmiro.recebevideo.core.dataprovider.DownloadEZipImagensGateway
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model.GetObjectRequest
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request
-import java.io.ByteArrayOutputStream
+import java.io.InputStream
 
 @Component
-class DownloadImagensDoS3GatewayImpl(
+class DownloadEZipImagensGatewayImpl(
     private val amazonS3Client: S3Client,
     @Value("\${amazon.s3.bucket}")
     private val bucketName: String
-) : DownloadImagensDoS3Gateway {
+) : DownloadEZipImagensGateway {
 
-    override fun executar(prefix: String): List<Pair<String, ByteArray>> {
-        val imagens: MutableList<Pair<String, ByteArray>> = mutableListOf()
-
+    override fun executar(prefix: String, stream: (String, InputStream) -> Unit) {
         val listRequest = ListObjectsV2Request.builder()
             .bucket(bucketName)
             .prefix(prefix)
@@ -32,14 +30,9 @@ class DownloadImagensDoS3GatewayImpl(
                 .key(key)
                 .build()
 
-            val s3InputStream = amazonS3Client.getObject(getRequest)
-            val outputStream = ByteArrayOutputStream()
-
-            s3InputStream.use { it.copyTo(outputStream) }
-
-            imagens.add(key to outputStream.toByteArray())
+            val s3ObjectStream = amazonS3Client.getObject(getRequest)
+            stream(key, s3ObjectStream)
+            s3ObjectStream.close()
         }
-
-        return imagens
     }
 }
