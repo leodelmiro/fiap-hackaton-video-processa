@@ -20,7 +20,7 @@ class ProcessaVideoUseCaseImpl(
     override fun executar(arquivo: Arquivo) {
         val file = downloadVideoGateway.executar(arquivo)
         val imagensKey = transformaVideoEmImagensUseCase.executar(file, arquivo.nome)
-        val zip = realizaZipImagensUseCase.executar(imagensKey)
+        val zip = realizaZipImagensUseCase.executar(imagensKey, arquivo.nome)
         val arquivoZip = uploadImagensZipGateway.executar(zip, arquivo)
         publicaProcessamentoFinalizadoGateway.executar(arquivoZip)
     }
