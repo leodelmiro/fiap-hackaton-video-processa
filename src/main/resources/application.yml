@@ -2,9 +2,9 @@ spring:
   cloud:
     aws:
       credentials:
-        access-key: ${AWS_ACCESS_KEY:ASIAX7PVKZLEZX7LYGSR}
-        secret-key: ${AWS_SECRET_KEY:XfWLL3Vvc5XGkT7/PQgrG2PXHZpsOuzsIj5SiMGw}
-        session: ${AWS_SESSION_TOKEN:IQoJb3JpZ2luX2VjEF0aCXVzLXdlc3QtMiJHMEUCIGc0KXBMHZjygsvaGpGMlheGr3DoWhsK0mM0Z6Nf8/nFAiEA4chVq8QQL8IHZF3fReJanFacpG4Tx8Kqt3z9dGRutocquQII1v//////////ARABGgw1NDg2NTk3MTA2NjUiDGsU8k4yZ7rEs7sDtCqNAuYnvPbmrYeeADsCFEjgLw8BqdcmxMzdMys29Kp9JPROwVZKp0VEwkMCKlD83u6q92Xwm1luDpWL1K7Guyu3Lf+UpJK7aJUeWDipFQnkh9QiLfZIOPDU6R5ECIMkDmTytIKnRMlOKFOvO/WxfC2UaRC3iguTX/vA0NiXAPXbUCsmc0yxU7H8YaS0mWDq3ExogviXAbz5lW3RpGfMKY/5xrjH0267lIoUIBV3tu3skw9oQiqa9HEMCT0m3SlCodFRRlizWSM2ltJBDZ1gPyrvx+oOO4bT3B5aUtUq/V97VeekSmlYeNMT+x6pAICPHqkgReqJayRVVMnMtqQe6b+r9c2Ud7Ut4DZU8enwTfq0MMrH6b8GOp0BrGCV2NrEQR0eTX9TrPfo5paVJlt6Hb5LlMO637MRflx507LSLnofS0QzoEzg6Tm0Z3OmBh9ymUM9PGe1gx+BXFsIxN6VYnGqR0SkpwwHMm4K+AWIsGZseI0pLC9sXOpBnKhAK82G/tilFKHj28QGynj3RBRiDqBPsJL7X5vQmaxmx6aZcdcsNDjYgYUU7xAevZk5+4IBIzJ9u6TKrQ==}
+        access-key: ${AWS_ACCESS_KEY:test}
+        secret-key: ${AWS_SECRET_KEY:test}
+        session: ${AWS_SESSION_TOKEN:test}
       region:
         static: ${AWS_REGION:us-east-1}
       s3:
