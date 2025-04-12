@@ -12,6 +12,8 @@ import software.amazon.awssdk.services.s3.S3Utilities
 import software.amazon.awssdk.services.s3.model.GetUrlRequest
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import software.amazon.awssdk.services.s3.model.PutObjectResponse
+import utils.criaArquivo
+import utils.criaMp4File
 import java.net.URL
 
 class UploadImagensZipGatewayImplTest {
@@ -37,7 +39,7 @@ class UploadImagensZipGatewayImplTest {
             autor = "Autor",
             url = "https://old-url.com"
         )
-        val zipContent = "conteúdo do zip".toByteArray()
+        val zipContent = criaMp4File()
         val s3Utilities = mock(S3Utilities::class.java)
         val putObjectResponse = mock(PutObjectResponse::class.java)
         val url = URL("https://s3.amazonaws.com/test-bucket/zips/arquivo.zip")

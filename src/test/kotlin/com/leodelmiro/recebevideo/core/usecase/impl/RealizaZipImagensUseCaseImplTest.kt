@@ -14,7 +14,7 @@ class RealizaZipImagensUseCaseImplTest {
     fun `deve criar um arquivo ZIP com as imagens fornecidas`() {
         val key = "videos/test/frames"
 
-        val zipBytes = realizaZipImagensUseCase.executar(key)
+        val zipBytes = realizaZipImagensUseCase.executar(key, "test")
 
         assertNotNull(zipBytes)
     }
