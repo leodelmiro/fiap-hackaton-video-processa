@@ -1,15 +1,16 @@
 package com.leodelmiro.recebevideo.core.usecase.impl
 
-import com.leodelmiro.recebevideo.core.dataprovider.DownloadVideoGateway
+import com.leodelmiro.recebevideo.core.dataprovider.DownloadArquivoGateway
 import com.leodelmiro.recebevideo.core.dataprovider.PublicaProcessamentoFinalizadoGateway
 import com.leodelmiro.recebevideo.core.dataprovider.UploadImagensZipGateway
 import com.leodelmiro.recebevideo.core.domain.Arquivo
 import com.leodelmiro.recebevideo.core.usecase.ProcessaVideoUseCase
 import com.leodelmiro.recebevideo.core.usecase.RealizaZipImagensUseCase
 import com.leodelmiro.recebevideo.core.usecase.TransformaVideoEmImagensUseCase
+import com.leodelmiro.recebevideo.dataprovider.UploadImagensS3Impl
 
 class ProcessaVideoUseCaseImpl(
-    private val downloadVideoGateway: DownloadVideoGateway,
+    private val downloadVideoGateway: DownloadArquivoGateway,
     private val transformaVideoEmImagensUseCase: TransformaVideoEmImagensUseCase,
     private val realizaZipImagensUseCase: RealizaZipImagensUseCase,
     private val uploadImagensZipGateway: UploadImagensZipGateway,
@@ -18,8 +19,8 @@ class ProcessaVideoUseCaseImpl(
     ProcessaVideoUseCase {
     override fun executar(arquivo: Arquivo) {
         val file = downloadVideoGateway.executar(arquivo)
-        val imagens = transformaVideoEmImagensUseCase.executar(file)
-        val zip = realizaZipImagensUseCase.executar(imagens)
+        val imagensKey = transformaVideoEmImagensUseCase.executar(file, arquivo.nome)
+        val zip = realizaZipImagensUseCase.executar(imagensKey)
         val arquivoZip = uploadImagensZipGateway.executar(zip, arquivo)
         publicaProcessamentoFinalizadoGateway.executar(arquivoZip)
     }
