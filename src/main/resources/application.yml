@@ -8,9 +8,9 @@ spring:
       region:
         static: ${AWS_REGION:us-east-1}
       s3:
-        endpoint: ${S3_URL:http://s3.localhost.localstack.cloud:4567/}
+        endpoint: ${S3_URL:https://s3.us-east-1.amazonaws.com}
       sqs:
-        endpoint: ${SQS_URL:http://localhost:4567}
+        endpoint: ${SQS_URL:https://sqs.us-east-1.amazonaws.com}
         queues:
           processamento-realizado: processamento-realizado
           processa-video: processa-video
