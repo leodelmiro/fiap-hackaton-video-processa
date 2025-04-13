@@ -102,5 +102,5 @@ Para executar o script, siga os passos abaixo:
     ```"
 
 ## Sonar Coverage
-![Sonar coverage](sonar-coverage.png)
+![Sonar Coverage](https://github.com/user-attachments/assets/b22bc36b-327a-41e5-a169-92c65e2c20e6)
 https://sonarcloud.io/summary/overall?id=leodelmiro_fiap-hackaton-video-processa&branch=main
