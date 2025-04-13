@@ -28,7 +28,7 @@ Este repositório é referente ao microserviço responsável pelo processamento 
 ## Tecnologias Utilizadas
 
 - Kotlin
-- Spring
+- Spring 3
 - Swagger
 - Docker
 - Docker Compose
